@@ -1,31 +1,15 @@
 # DOCKER-VERSION 1.5.0
 # VERSION 0.2
 
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER James Badger <james@jamesbadger.ca>
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
-    cmake \
-    g++ \
-    git-core \
-    libboost-dev \
-    libboost-filesystem-dev \
-    libboost-system-dev \
-    libboost-thread-dev \
-    libbz2-dev \
-    libgeos++-dev \
-    libgeos-dev \
-    liblua5.2-dev \
-    libpq-dev \
-    libproj-dev \
-    libprotobuf-c0-dev \
-    libtool \
-    libxml2-dev \
-    lua5.2 \
-    make \
-    protobuf-c-compiler && \
+    git make cmake g++ libboost-dev libboost-system-dev \
+    libboost-filesystem-dev libexpat1-dev zlib1g-dev \
+    libbz2-dev libpq-dev libproj-dev lua5.2 liblua5.2-dev && \
     rm -rf /var/lib/apt/lists/*
 
 ENV HOME /root

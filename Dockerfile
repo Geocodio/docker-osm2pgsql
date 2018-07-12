@@ -7,8 +7,7 @@ MAINTAINER James Badger <james@jamesbadger.ca>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
-    autoconf \
-    automake \
+    cmake \
     g++ \
     git-core \
     libboost-dev \
@@ -26,21 +25,21 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     lua5.2 \
     make \
-    protobuf-c-compiler &&\
+    protobuf-c-compiler && \
     rm -rf /var/lib/apt/lists/*
 
 ENV HOME /root
 ARG OSM2PGSQL_VERSION=0.96.0
 
-RUN mkdir src &&\
-    cd src &&\
-    git clone --depth 1 --branch $OSM2PGSQL_VERSION https://github.com/openstreetmap/osm2pgsql.git &&\
-    cd osm2pgsql &&\
-    ./autogen.sh &&\
-    ./configure &&\
-    make &&\
-    make install &&\
-    cd /root &&\
+RUN mkdir src && \
+    cd src && \
+    git clone --depth 1 --branch $OSM2PGSQL_VERSION https://github.com/openstreetmap/osm2pgsql.git && \
+    cd osm2pgsql && \
+    mkdir build && cd build && \
+    cmake .. && \
+    make && \
+    make install && \
+    cd /root && \
     rm -rf src
 
 ENTRYPOINT ["/bin/bash"]
